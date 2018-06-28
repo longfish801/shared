@@ -212,30 +212,31 @@ class ExistResourceSpec extends Specification {
 		given:
 		ExistResource existResource = new ExistResource(ExistResourceSpec.class);
 		Map<String, URL> map;
+		String commonPath = new File('build/resources/test').canonicalFile.toURI().toURL().toString();
 		
 		when:
 		map = existResource.find('existResouceTest');
 		then:
 		map.sort() == [
-			'a.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/existResouceTest/a.txt'),
-			'b.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/existResouceTest/b.txt'),
-			'c.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/io/github/longfish801/shared/lang/existResouceTest/c.txt'),
+			'a.txt': new URL("${commonPath}existResouceTest/a.txt"),
+			'b.txt': new URL("${commonPath}existResouceTest/b.txt"),
+			'c.txt': new URL("${commonPath}io/github/longfish801/shared/lang/existResouceTest/c.txt"),
 		];
 		
 		when:
 		map = existResource.find('existResouceTest', [ 'a.*', 'c.txt' ]);
 		then:
 		map.sort() == [
-			'a.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/existResouceTest/a.txt'),
-			'c.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/io/github/longfish801/shared/lang/existResouceTest/c.txt'),
+			'a.txt': new URL("${commonPath}existResouceTest/a.txt"),
+			'c.txt': new URL("${commonPath}io/github/longfish801/shared/lang/existResouceTest/c.txt"),
 		];
 		
 		when:
 		map = existResource.find('existResouceTest', [ ], [ 'c.*' ]);
 		then:
 		map.sort() == [
-			'a.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/existResouceTest/a.txt'),
-			'b.txt': new URL('file:/C:/own/cur/_gstart/longfish801/shared/build/resources/test/existResouceTest/b.txt')
+			'a.txt': new URL("${commonPath}existResouceTest/a.txt"),
+			'b.txt': new URL("${commonPath}existResouceTest/b.txt")
 		];
 		
 		when:
