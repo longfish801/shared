@@ -7,7 +7,6 @@ package io.github.longfish801.shared.lang;
 
 import groovy.util.logging.Slf4j;
 import spock.lang.Specification;
-import io.github.longfish801.shared.util.ClassDirectory;
 
 /**
  * ArgmentCheckerクラスのテスト。
@@ -17,9 +16,9 @@ import io.github.longfish801.shared.util.ClassDirectory;
 @Slf4j('LOG')
 class ArgmentCheckerSpec extends Specification {
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = new ClassDirectory('src/test/resources').getDeepDir(ArgmentCheckerSpec.class);
+	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), ArgmentCheckerSpec.class);
 	
-	def '引数が nullではないことをチェックします'(){
+	def 'checkNotNull'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -35,7 +34,7 @@ class ArgmentCheckerSpec extends Specification {
 		noExceptionThrown();
 	}
 	
-	def '引数が指定されたクラスのインスタンスかチェックします'(){
+	def 'checkClass'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -63,7 +62,7 @@ class ArgmentCheckerSpec extends Specification {
 		noExceptionThrown();
 	}
 	
-	def '引数が指定されたクラス候補のいずれかのインスタンスであることをチェックします'(){
+	def 'checkClasses'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -91,7 +90,7 @@ class ArgmentCheckerSpec extends Specification {
 		noExceptionThrown();
 	}
 	
-	def '引数が空文字ではないことをチェックします'(){
+	def 'checkNotEmpty'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -113,7 +112,7 @@ class ArgmentCheckerSpec extends Specification {
 		noExceptionThrown()
 	}
 	
-	def '引数が空白文字から成る文字列ではないことをチェックします'(){
+	def 'checkNotBlank'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -142,7 +141,7 @@ class ArgmentCheckerSpec extends Specification {
 		exc.message == '引数に空白文字を指定するのは不正です。arg=[ 　\t]';
 	}
 	
-	def '引数が nullではなく、かつ正規表現を満たす文字列であることをチェックします'(){
+	def 'checkMatchRex'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -170,7 +169,7 @@ class ArgmentCheckerSpec extends Specification {
 		exc.message == '引数が正規表現を満たさず不正です。arg=[a#b], rex=[^#]+';
 	}
 	
-	def 'リストが空ではないことをチェックします'(){
+	def 'checkNotEmptyList'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -187,7 +186,7 @@ class ArgmentCheckerSpec extends Specification {
 		exc.message == '空の引数を指定するのは不正です。';
 	}
 	
-	def 'マップが空ではないことをチェックします'(){
+	def 'checkNotEmptyMap'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -204,7 +203,7 @@ class ArgmentCheckerSpec extends Specification {
 		exc.message == '空の引数を指定するのは不正です。';
 	}
 	
-	def '引数がマップのキーとして存在しないことをチェックします'(){
+	def 'checkUniqueKey'(){
 		given:
 		IllegalArgumentException exc = null;
 		Map map = [ 'abc' : 123 ];
@@ -233,7 +232,7 @@ class ArgmentCheckerSpec extends Specification {
 		noExceptionThrown();
 	}
 	
-	def '引数が存在するファイルであることをチェックします'(){
+	def 'checkExistFile'(){
 		given:
 		IllegalArgumentException exc = null;
 		
@@ -255,7 +254,7 @@ class ArgmentCheckerSpec extends Specification {
 		exc.message == /引数は存在しないファイルです。arg=[src\test\resources\io\github\longfish801\shared\lang\ArgmentCheckerSpec\noSuchFile.txt]/;
 	}
 	
-	def '引数が存在するフォルダであることをチェックします'(){
+	def 'checkExistDirectory'(){
 		given:
 		IllegalArgumentException exc = null;
 		

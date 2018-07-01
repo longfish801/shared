@@ -6,7 +6,7 @@
 package io.github.longfish801.shared.util;
 
 import groovy.util.logging.Slf4j;
-
+import io.github.longfish801.shared.lang.PackageDirectory;
 import spock.lang.Specification;
 import spock.lang.Unroll;
 
@@ -19,10 +19,10 @@ import spock.lang.Unroll;
 @Slf4j('LOG')
 class ConfigXmlSpec extends Specification {
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = new ClassDirectory('src/test/resources').getDeepDir(ConfigXmlSpec.class);
+	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), ConfigXmlSpec.class);
 	
 	@Unroll
-	def 'ConfigObjectを文字出力ストリームにXML形式で書きこみます'(){
+	def 'outputXml'(){
 		when:
 		Closure outputXml = { String fname ->
 			ConfigObject config = new ConfigSlurper().parse(new File(testDir, "${fname}.groovy").toURL());
@@ -42,7 +42,7 @@ class ConfigXmlSpec extends Specification {
 	}
 	
 	@Unroll
-	def '文字入力ストリームからXMLを解析し ConfigObjectに読みこみます'(){
+	def 'loadXml'(){
 		when:
 		Closure loadXml = { String fname ->
 			ConfigObject config = new ConfigObject();

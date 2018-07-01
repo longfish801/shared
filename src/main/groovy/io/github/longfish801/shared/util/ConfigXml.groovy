@@ -9,12 +9,16 @@ import groovy.transform.InheritConstructors;
 import groovy.util.logging.Slf4j;
 import groovy.util.slurpersupport.GPathResult;
 import groovy.xml.MarkupBuilder;
+import io.github.longfish801.shared.lang.ExchangeResource;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 
 /**
  * ConfigObjectをXMLから参照／保存するためのクラスです。<br>
+ * ConfigSlurperによるファイル入出力では、文字列長に上限があったり、
+ * 半角円記号(\)の扱いに問題があったりするため XMLで保存できるようにしました。<br>
  * ConfigObjectに格納された値について、以下のデータ型に対応しています。</p>
+ *
  * <ul>
  * <li>null</li>
  * <li>プリミティブ型（byte, short, int, long, float, double, char, boolean）</li>
@@ -23,10 +27,9 @@ import java.text.ParseException;
  * <li>List (java.util.ArrayList)</li>
  * <li>Map (java.util.LinkedHashMap)</li>
  * </ul>
+ *
  * <p>XML文法についての説明は省略します。<br>
- * 本クラスを通じた入出力を想定しており、手動での XML作成は考慮していません。</p>
- * <p>ConfigSlurperによるファイル入出力では、文字列長に上限があったり、
- * 円記号(\)の扱いに問題があったりするため XML形式としました。
+ * 本クラスを通じた入出力を想定しており、手動での XML作成は考慮していません。
  * @version 1.0.00 2017/07/09
  * @author io.github.longfish801
  */
@@ -34,7 +37,7 @@ import java.text.ParseException;
 @Slf4j('LOG')
 class ConfigXml {
 	/** ConfigObject */
-	protected static final ConfigObject constants = ClassSlurper.getConfig(ConfigXml.class);
+	protected static final ConfigObject constants = ExchangeResource.config(ConfigXml.class);
 	
 	/**
 	 * ConfigObjectを文字出力ストリームにXML形式で書きこみます。

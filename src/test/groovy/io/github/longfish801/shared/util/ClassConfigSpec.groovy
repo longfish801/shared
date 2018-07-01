@@ -17,7 +17,7 @@ import spock.lang.Specification;
  */
 @Slf4j('LOG')
 class ClassConfigSpec extends Specification {
-	def '設定値文字列を初期設定値としたClassConfigインスタンスを返します'(){
+	def 'newInstance：設定値文字列'(){
 		given:
 		String defConfig = '''\
 			some.test = 'test'
@@ -54,7 +54,7 @@ class ClassConfigSpec extends Specification {
 		config3.some.addKey == 0.12;
 	}
 	
-	def 'リソース上の初期設定ファイルを初期設定値としたClassConfigインスタンスを返します'(){
+	def 'newInstance：初期設定ファイル'(){
 		when: 'データディレクトリが削除されること'
 		ClassConfig config1 = ClassConfig.newInstance(ClassConfigSpec.class);
 		config1.deleteDataDir();
@@ -97,7 +97,7 @@ class ClassConfigSpec extends Specification {
 		thrown(IllegalArgumentException);
 	}
 	
-	def 'データフォルダを削除します'(){
+	def 'deleteDataDir'(){
 		given:
 		ClassConfig config = new ClassConfig(ClassConfigSpec.class);
 		
@@ -115,7 +115,7 @@ class ClassConfigSpec extends Specification {
 		config.getDataDir().isDirectory() == false;
 	}
 	
-	def '設定値文字列を読みこみます'(){
+	def 'loadStringConfig'(){
 		given:
 		String defConfig = '''\
 			some.test = 'test'
@@ -124,25 +124,25 @@ class ClassConfigSpec extends Specification {
 		ClassConfig config = new ClassConfig(ClassConfigSpec.class);
 		
 		when:
-		config.loadConfigString(defConfig);
+		config.loadStringConfig(defConfig);
 		then:
 		config.some.test == 'test';
 		config.some.num == 123;
 		config.some.bool == true;
 		
 		when:
-		config.loadConfigString('');
+		config.loadStringConfig('');
 		then:
 		thrown(IllegalArgumentException);
 	}
 	
-	def 'リソース上に初期設定ファイルが存在すれば読みこみます'(){
+	def 'loadResourceConfig'(){
 		given:
 		ClassConfig config = null;
 		
 		when:
 		config = new ClassConfig(ClassConfigSpec.class);
-		config.loadConfigResource();
+		config.loadResourceConfig();
 		then:
 		config.key == 'This is TEST';
 		config.num == 123;
@@ -150,18 +150,18 @@ class ClassConfigSpec extends Specification {
 		
 		when:
 		config = new ClassConfig(InternalClass.class);
-		config.loadConfigResource();
+		config.loadResourceConfig();
 		then:
 		thrown(MultipleCompilationErrorsException);
 	}
 	
-	def 'データフォルダに設定ファイルが存在すれば読みこみます'(){
+	def 'loadCurrentConfig'(){
 		given:
 		ClassConfig config = new ClassConfig(ClassConfigSpec.class);
 		
 		when:
 		config.deleteDataDir();
-		config.loadConfig();
+		config.loadCurrentConfig();
 		then:
 		config.size() == 0;
 		
@@ -169,12 +169,12 @@ class ClassConfigSpec extends Specification {
 		config.some = 'value';
 		config.saveConfig();
 		ClassConfig config2 = new ClassConfig(ClassConfigSpec.class);
-		config2.loadConfig();
+		config2.loadCurrentConfig();
 		then:
 		config2.some == 'value';
 	}
 	
-	def '設定値をデータフォルダ内の設定ファイルへ保存します'(){
+	def 'saveConfig'(){
 		given:
 		ClassConfig config = new ClassConfig(ClassConfigSpec.class);
 		
@@ -184,19 +184,6 @@ class ClassConfigSpec extends Specification {
 		
 		then:
 		config.getConfFile().isFile() == true;
-	}
-	
-	def '設定値をデータフォルダ内の設定ファイルへ保存します'(){
-		given:
-		ClassConfig config = new ClassConfig(ClassConfigSpec.class);
-		
-		when: '設定ファイルから新しい設定値を参照できること'
-		config.loadConfigResource();
-		
-		then:
-		config.key == 'This is TEST';
-		config.num == 123;
-		config.bool == true;
 	}
 	
 	/**

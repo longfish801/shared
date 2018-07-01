@@ -35,7 +35,9 @@ class ArgmentChecker {
 	static void checkClass(String name, Object arg, Class clazz) {
 		checkNotNull('クラス', clazz);
 		checkNotNull(name, arg);
-		if (!(clazz.isInstance(arg))) throw new IllegalArgumentException("${name}が妥当なクラスではありません。arg=[${arg}], 妥当なクラス=${clazz}, 引数のクラス=${arg.getClass()}");
+		if (!(clazz.isInstance(arg))){
+			throw new IllegalArgumentException("${name}が妥当なクラスではありません。arg=[${arg}], 妥当なクラス=${clazz}, 引数のクラス=${arg.getClass()}");
+		}
 	}
 	
 	/**
@@ -49,7 +51,9 @@ class ArgmentChecker {
 	static void checkClasses(String name, Object arg, List<Class> classes) {
 		checkNotEmptyList('クラス候補', classes);
 		checkNotNull(name, arg);
-		if (classes.every { !(it.isInstance(arg)) }) throw new IllegalArgumentException("${name}が妥当なクラスではありません。arg=[${arg}], 妥当なクラス候補=${classes}, 引数のクラス=${arg.getClass()}");
+		if (classes.every { !(it.isInstance(arg)) }){
+			throw new IllegalArgumentException("${name}が妥当なクラスではありません。arg=[${arg}], 妥当なクラス候補=${classes}, 引数のクラス=${arg.getClass()}");
+		}
 	}
 	
 	/**
