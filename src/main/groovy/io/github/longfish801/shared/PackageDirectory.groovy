@@ -3,7 +3,7 @@
  *
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
-package io.github.longfish801.shared.lang;
+package io.github.longfish801.shared;
 
 import groovy.util.logging.Slf4j;
 import java.util.regex.Matcher;
@@ -26,7 +26,6 @@ class PackageDirectory {
 	 * @return クラスの正規名に対応するフォルダ
 	 */
 	static File deepDir(File rootDir, Class clazz){
-		ArgmentChecker.checkNotNull('rootDir', rootDir);
 		ArgmentChecker.checkNotNull('clazz', clazz);
 		return new File(rootDir, clazz.canonicalName.replaceAll(Pattern.quote('.'), Matcher.quoteReplacement(File.separator)));
 	}
@@ -41,7 +40,6 @@ class PackageDirectory {
 	 * @return クラスのパッケージ名に対応するフォルダ
 	 */
 	static File flatDir(File rootDir, Class clazz){
-		ArgmentChecker.checkNotNull('rootDir', rootDir);
 		ArgmentChecker.checkNotNull('clazz', clazz);
 		return new File(rootDir, clazz.canonicalName);
 	}

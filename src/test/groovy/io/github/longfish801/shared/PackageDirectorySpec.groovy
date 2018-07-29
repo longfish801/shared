@@ -3,7 +3,7 @@
  *
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
-package io.github.longfish801.shared.lang;
+package io.github.longfish801.shared;
 
 import groovy.util.logging.Slf4j;
 import spock.lang.Specification;
@@ -35,6 +35,6 @@ class PackageDirectorySpec extends Specification {
 		when:
 		file = PackageDirectory.flatDir(rootDir, PackageDirectorySpec.class);
 		then:
-		file.name == 'io.github.longfish801.shared.lang.PackageDirectorySpec';
+		file.name == 'io.github.longfish801.shared.PackageDirectorySpec';
 	}
 }
