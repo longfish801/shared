@@ -3,7 +3,7 @@
  *
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
-package io.github.longfish801.shared.lang;
+package io.github.longfish801.shared;
 
 import groovy.util.logging.Slf4j;
 import java.nio.charset.Charset;
@@ -24,7 +24,7 @@ class ExchangeResourceSpec extends Specification {
 		when: "パッケージから参照するか"
 		url = ExchangeResource.url(ExchangeResourceSpec.class, 'ExchangeResourceSpec.txt');
 		then:
-		new File(url.getPath()).parentFile.name == 'lang';
+		new File(url.getPath()).parentFile.name == 'shared';
 		
 		when: "パッケージルートから参照するか"
 		url = ExchangeResource.url(ExchangeResourceSpec.class, 'ExchangeResourceSpec.config');
@@ -34,7 +34,7 @@ class ExchangeResourceSpec extends Specification {
 		when: "接尾辞とみなしてパッケージから参照するか"
 		url = ExchangeResource.url(ExchangeResourceSpec.class, '.txt');
 		then:
-		new File(url.getPath()).parentFile.name == 'lang';
+		new File(url.getPath()).parentFile.name == 'shared';
 		
 		when: "接尾辞とみなしてパッケージルートから参照するか"
 		url = ExchangeResource.url(ExchangeResourceSpec.class, '.config');

@@ -3,7 +3,7 @@
  *
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
-package io.github.longfish801.shared.lang;
+package io.github.longfish801.shared;
 
 import groovy.util.logging.Slf4j;
 import spock.lang.Specification;
@@ -251,7 +251,7 @@ class ArgmentCheckerSpec extends Specification {
 		ArgmentChecker.checkExistFile('引数', new File(testDir, 'noSuchFile.txt'));
 		then:
 		exc = thrown(IllegalArgumentException);
-		exc.message == /引数は存在しないファイルです。arg=[src\test\resources\io\github\longfish801\shared\lang\ArgmentCheckerSpec\noSuchFile.txt]/;
+		exc.message == /引数は存在しないファイルです。arg=[src\test\resources\io\github\longfish801\shared\ArgmentCheckerSpec\noSuchFile.txt]/;
 	}
 	
 	def 'checkExistDirectory'(){
@@ -273,6 +273,6 @@ class ArgmentCheckerSpec extends Specification {
 		ArgmentChecker.checkExistDirectory('引数', new File(testDir, 'test.txt'));
 		then:
 		exc = thrown(IllegalArgumentException);
-		exc.message == /引数は存在しないフォルダです。arg=[src\test\resources\io\github\longfish801\shared\lang\ArgmentCheckerSpec\test.txt]/;
+		exc.message == /引数は存在しないフォルダです。arg=[src\test\resources\io\github\longfish801\shared\ArgmentCheckerSpec\test.txt]/;
 	}
 }

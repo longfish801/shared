@@ -3,7 +3,7 @@
  *
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
-package io.github.longfish801.shared.lang;
+package io.github.longfish801.shared;
 
 import groovy.util.logging.Slf4j;
 import java.nio.charset.Charset;
@@ -97,7 +97,7 @@ class ExchangeResource {
 	 * @return ConfigObject（設定ファイルが存在しなければ nullを返します）
 	 */
 	static ConfigObject config(Class clazz){
-		URL url = ExchangeResource.url(clazz, RSRC.getString('EXTENSION'));
+		URL url = ExchangeResource.url(clazz, RSRC.getString('CONFIG_EXT'));
 		if (url == null) return null;
 		return slurper.parse(url);
 	}
