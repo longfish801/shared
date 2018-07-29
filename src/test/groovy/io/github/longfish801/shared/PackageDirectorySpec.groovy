@@ -15,15 +15,22 @@ import spock.lang.Specification;
  */
 @Slf4j('LOG')
 class PackageDirectorySpec extends Specification {
+	/** ルートフォルダへのパス */
+	static final String rootPath = 'src/test/resources';
 	/** ルートフォルダ */
-	private static final File rootDir = new File('src/test/resources');
+	static final File rootDir = new File(rootPath);
 	
-	def 'canonicalDir'(){
+	def 'deepDir'(){
 		given:
 		File file;
 		
 		when:
 		file = PackageDirectory.deepDir(rootDir, PackageDirectorySpec.class);
+		then:
+		file.name == 'PackageDirectorySpec';
+		
+		when:
+		file = PackageDirectory.deepDir(rootPath, PackageDirectorySpec.class);
 		then:
 		file.name == 'PackageDirectorySpec';
 	}
@@ -34,6 +41,11 @@ class PackageDirectorySpec extends Specification {
 		
 		when:
 		file = PackageDirectory.flatDir(rootDir, PackageDirectorySpec.class);
+		then:
+		file.name == 'io.github.longfish801.shared.PackageDirectorySpec';
+		
+		when:
+		file = PackageDirectory.flatDir(rootPath, PackageDirectorySpec.class);
 		then:
 		file.name == 'io.github.longfish801.shared.PackageDirectorySpec';
 	}

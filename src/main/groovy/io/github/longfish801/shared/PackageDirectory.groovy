@@ -31,6 +31,17 @@ class PackageDirectory {
 	}
 	
 	/**
+	 * クラスの正規名に対応する階層のフォルダを返します。
+	 * @param rootPath ルートフォルダへのパス
+	 * @param clazz フォルダのパスに利用するクラス
+	 * @return クラスの正規名に対応するフォルダ
+	 * @see #deepDir(File, Class)
+	 */
+	static File deepDir(String rootPath, Class clazz){
+		return deepDir(new File(rootPath), clazz);
+	}
+	
+	/**
 	 * クラスの正規名に対応するフォルダを返します。<br>
 	 * たとえば rootDirが /foo/barで、clazzが io.github.Someoneならば、
 	 * /foo/bar/io.github.Someoneフォルダを返します。<br>
@@ -42,5 +53,15 @@ class PackageDirectory {
 	static File flatDir(File rootDir, Class clazz){
 		ArgmentChecker.checkNotNull('clazz', clazz);
 		return new File(rootDir, clazz.canonicalName);
+	}
+	
+	/**
+	 * クラスの正規名に対応するフォルダを返します。
+	 * @param rootPath ルートフォルダへのパス
+	 * @param clazz フォルダのパスに利用するクラス
+	 * @return クラスのパッケージ名に対応するフォルダ
+	 */
+	static File flatDir(String rootPath, Class clazz){
+		return flatDir(new File(rootPath), clazz);
 	}
 }
