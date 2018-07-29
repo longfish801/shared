@@ -3,7 +3,7 @@
  *
  * Copyright (C) io.github.longfish801 All Rights Reserved.
  */
-package io.github.longfish801.shared.lang;
+package io.github.longfish801.shared;
 
 import org.apache.commons.lang3.StringUtils;
 
