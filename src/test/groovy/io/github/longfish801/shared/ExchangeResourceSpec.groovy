@@ -97,19 +97,19 @@ class ExchangeResourceSpec extends Specification {
 	
 	def 'config'(){
 		given:
-		ConfigObject constants = null;
+		ConfigObject cnst = null;
 		
 		when:
-		constants = ExchangeResource.config(ExchangeResourceSpec.class);
+		cnst = ExchangeResource.config(ExchangeResourceSpec.class);
 		then:
-		constants.str == 'これはテストです。';
-		constants.specialChars == '～①㈱';
-		constants.number == 11.7;
-		constants.some.list == [ 1, 2, 3 ];
+		cnst.str == 'これはテストです。';
+		cnst.specialChars == '～①㈱';
+		cnst.number == 11.7;
+		cnst.some.list == [ 1, 2, 3 ];
 		
 		when:
-		constants = ExchangeResource.config(String.class);
+		cnst = ExchangeResource.config(String.class);
 		then:
-		constants == null;
+		cnst == null;
 	}
 }

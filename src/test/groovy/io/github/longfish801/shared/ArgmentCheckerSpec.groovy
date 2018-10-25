@@ -16,7 +16,7 @@ import spock.lang.Specification;
 @Slf4j('LOG')
 class ArgmentCheckerSpec extends Specification {
 	/** ファイル入出力のテスト用フォルダ */
-	private static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), ArgmentCheckerSpec.class);
+	static final File testDir = PackageDirectory.deepDir(new File('src/test/resources'), ArgmentCheckerSpec.class);
 	
 	def 'checkNotNull'(){
 		given:
