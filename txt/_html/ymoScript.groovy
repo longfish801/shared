@@ -12,7 +12,7 @@ yakumo.script {
 	configure(convDir);
 	
 	// 出力先フォルダを設定する
-	File outDir = new File(targetDir, '../doc');
+	File outDir = new File(targetDir, '../docs');
 	setIO(outDir, '.html');
 	
 	// 固定ファイルをコピーする
