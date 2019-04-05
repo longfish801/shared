@@ -10,5 +10,3 @@
 　API仕様書は以下を参照してください。
 
 ・【リンク：Groovydoc：groovydoc/index.html】
-
-以上
